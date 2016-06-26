@@ -48,6 +48,6 @@ private:
 };
 
 int main()
-{
+{ 
     cin.get();
 }
