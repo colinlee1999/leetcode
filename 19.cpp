@@ -23,7 +23,7 @@ public:
 		q = head;
 		while (n-- > 0) q = q->next;
 		while (q)
-		{
+		{ 
 			r = p;
 			p = p->next;
 			q = q->next;
