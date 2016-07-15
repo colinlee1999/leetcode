@@ -14,12 +14,8 @@ public:
 		memset(f, 0, sizeof(f));
 		for (int right = 0; right <= nlen + 1; right++)
 			for (int left = right; left >= 0; left--)
-			{
 				for (int mid = left+1; mid < right; mid++)
-				{
 					f[left][right] = max(f[left][right], f[left][mid] + f[mid][right] + nums[left] * nums[mid] * nums[right]);
-				}
-			}
 		return f[0][nlen + 1];
 	}
 };
