@@ -9,11 +9,9 @@ using namespace std;
 class Solution {
 public:
 	vector<vector<int>> fourSum(vector<int>& nums, int target) {
-		vector<int> record(nums);
 		sort(nums.begin(), nums.end());
 		vector<vector<int>> result;
 		vector<vector<int>> mid_result;
-		
 		int left, right, temp;
 		for (int i = 0; i < (int)nums.size() - 3; i++)
 		{
