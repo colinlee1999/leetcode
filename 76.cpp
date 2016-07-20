@@ -23,17 +23,19 @@ public:
 			count_target[it]++;
 			count_target_index.insert(it);
 		}
+		int cover = 0;
+		for (auto it : count_target_index)
+			cover += it;
 		string result;
 		int min_len = INT_MAX;
 		bool contains = false;
 		while (right < s.length())
 		{
-			if (contains)
-				count_array[s[right]]++;
-			else
+			count_array[s[right]]++;
+			if (!contains)
 			{
-				count_array[s[right]]++;
-				contains = count_array_contains(count_array, count_target, count_target_index);
+				if (count_array[s[right]] == count_target[s[right]]) cover -= s[right];
+				contains = (cover == 0);
 			}
 			right++;
 			if (contains)
@@ -51,17 +53,6 @@ public:
 			}
 		}
 		return result;
-	}
-
-private:
-	bool count_array_contains(vector<int> & count_array,
-		vector<int> & count_target,
-		unordered_set<int> count_target_index)
-	{
-		for (auto it : count_target_index)
-			if (count_array[it] < count_target[it])
-				return false;
-		return true;
 	}
 };
 
