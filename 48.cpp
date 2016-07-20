@@ -17,11 +17,6 @@ public:
 			for (int cur_col = row; cur_col < n - row - 1; cur_col++)
 			{
 				int temp = matrix[cur_row][cur_col];
-				//matrix[cur_row][cur_col] = matrix[cur_col][n - cur_row - cur_row - 1];
-				//matrix[cur_col][n - cur_row - cur_row - 1] = matrix[n - cur_row - 1][n - cur_col - 1];
-				//matrix[n - cur_row - 1][n - cur_col - 1] = matrix[n - cur_col - 1][cur_row];
-				//matrix[n - cur_col - 1][cur_row] = temp;
-
 				matrix[cur_row][cur_col] = matrix[n - cur_col - 1][cur_row];
 				matrix[n - cur_col - 1][cur_row] = matrix[n - cur_row - 1][n - cur_col - 1];
 				matrix[n - cur_row - 1][n - cur_col - 1] =matrix[cur_col][n - cur_row - 1];
