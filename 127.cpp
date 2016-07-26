@@ -5,8 +5,9 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <string>
+#include <queue>
 #define INT_MIN (1<<31)
-#define INT_MAX ~(INT_MIN)
+#define INT_MAX (~(INT_MIN))
 using namespace std;
 
 class Solution {
@@ -37,7 +38,7 @@ public:
 					next[j].push_back(i);
 				}
 		int shortest_length = INT_MAX;
-		dfs(0, 
+		bfs(0, 
 			beginWord, 
 			endWord,
 			v,
@@ -49,7 +50,7 @@ public:
 	}
 
 private:
-	void dfs(int depth,
+	void bfs(int depth,
 		string beginWord,
 		string endWord,
 		vector<string> & v,
@@ -58,23 +59,30 @@ private:
 		unordered_map<string, int> & m,
 		int & shortest_length)
 	{
-		if (beginWord == endWord)
-			shortest_length = min(shortest_length, depth);
-		else if (dist(beginWord, endWord) == 1)
-			shortest_length = min(shortest_length, depth + 1);
-		else
+		queue<pair<string, int>> q;
+		q.push(pair<string, int>(beginWord, 0));
+		b[m[beginWord]] = true;
+		while (!q.empty())
 		{
-			int cur_index = m[beginWord];
+			pair<string, int> tfront = q.front();
+			int temp = dist(tfront.first, endWord);
+			if (temp <= 1)
+			{
+				shortest_length = tfront.second + temp;
+				return;
+			}
+			q.pop();
+			int cur_index = m[tfront.first];
 			for (int i = 0; i < next[cur_index].size(); i++)
-				if (!b[next[cur_index][i]])
+			{
+				int next_index = next[cur_index][i];
+				if (!b[next_index])
 				{
-					int next_index = next[cur_index][i];
 					b[next_index] = true;
-					dfs(depth + 1, v[next_index], endWord,
-						v, next, b, m, shortest_length);
-					b[next_index] = false;
+					q.push(pair<string, int>(v[next_index], tfront.second + 1));
 				}
-		}
+			}
+		}			
 	}
 
 	int dist(string word1, string word2)
@@ -91,13 +99,13 @@ int main()
     Solution s;
 	unordered_set<string> v;
 	v.insert("hot");
-	// v.insert("cog");
+	v.insert("cog");
 	v.insert("dog");
-	// v.insert("tot");
-	// v.insert("hog");
-	// v.insert("hop");
-	// v.insert("pot");
-	// v.insert("dot");
+	v.insert("tot");
+	v.insert("hog");
+	v.insert("hop");
+	v.insert("pot");
+	v.insert("dot");
 	cout<<s.ladderLength("hot", "dog", v);
     cin.get();
 }
