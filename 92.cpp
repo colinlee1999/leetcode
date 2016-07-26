@@ -28,8 +28,8 @@ public:
 			q = q->next;
 			left++;
 		}
-		s = p;
-		t = q;
+		s = q;
+		t = q->next;
 		right = left;
 		while (right < n)
 		{
