@@ -28,19 +28,27 @@ public:
 				q.pop();
 				unordered_set<string> to_be_removed;
 				bool found = false;
-				for (auto it : wordList)
-					if (dist(tfront.first, it) == 1)
+				for (int i = 0; i < tfront.first.length(); i++)
+				{
+					string temps = tfront.first;
+					for (char ch = 'a'; ch <= 'z'; ch++)
 					{
-						q.push(pair<string, int>(it, tfront.second + 1));
-						int temp = dist(it, endWord);
-						if (temp <= 1)
+						temps[i] = ch;
+						if (wordList.find(temps) != wordList.end())
 						{
-							shortest_length = tfront.second + 1 + temp;
-							found = true;
-							break;
+							to_be_removed.insert(temps);
+							q.push(pair<string, int>(temps, tfront.second + 1));
+							int temp = dist(temps, endWord);
+							if (temp <= 1)
+							{
+								shortest_length = tfront.second + 1 + temp;
+								found = true;
+								break;
+							}
 						}
-						to_be_removed.insert(it);
 					}
+					if (found) break;
+				}
 				if (found) break;
 				for (auto it : to_be_removed)
 					wordList.erase(it);
