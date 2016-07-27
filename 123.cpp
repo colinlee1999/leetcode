@@ -7,30 +7,31 @@ using namespace std;
 class Solution {
 public:
 	int maxProfit(vector<int>& prices) {
-		int left = 0;
-		int right = prices.size();
-		int total_gain = 0;
-		for (int mid = left + 2; mid <= right; mid++)
-			total_gain = max(total_gain, _maxProfit(prices, left, mid) + _maxProfit(prices, mid, right));
+		if (prices.size() == 0) return 0;
+		vector<int> sell(prices.size(), 0), buy(prices.size(), 0);
+		int best_buy_price = prices.front();
+		for (int i = 1; i < (int)prices.size(); i++)
+		{
+			sell[i] = max(sell[i - 1], prices[i] - best_buy_price);
+			best_buy_price = min(best_buy_price, prices[i]);
+		}
+		int best_sell_price = prices.back();
+		for (int i = (int)prices.size() - 2; i >= 0; i--)
+		{
+			buy[i] = max(buy[i + 1], best_sell_price - prices[i]);
+			best_sell_price = max(best_sell_price, prices[i]);
+		}
+		int total_gain = max(sell[(int)prices.size() - 1], buy[0]);
+		for (int i = 0; i < (int)prices.size() - 1; i++)
+			total_gain = max(total_gain, sell[i] + buy[i + 1]);
 		return total_gain;
 	}
-
-private:
-	int _maxProfit(vector<int>& prices, int left, int right) {
-		if (prices.size() < 2) return 0;
-        int minimum = prices[left];
-		int result = 0;
-		for (int i = left + 1; i < right; i++)
-		{
-			if (prices[i] - minimum > result) result = prices[i] - minimum;
-			if (prices[i] < minimum) minimum = prices[i];
-		}
-		return result;
-    }
 };
 
 int main()
 {
     Solution s;
+	vector<int> v;
+	s.maxProfit(v);
     cin.get();
 }
