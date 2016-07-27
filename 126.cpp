@@ -92,7 +92,9 @@ public:
 		if (found)
 		{
 			for (auto it1 = front_reach.begin(); it1 != front_reach.end(); it1++)
-				for (auto it2 = back_reach.begin(); it2 != back_reach.end(); it2++)
+			{
+				auto range = back_reach.equal_range(it1->first);
+				for (auto it2 = range.first; it2 != range.second; it2++)
 					if (it1->first == it2->first)
 					{
 						vector<string> tv;
@@ -112,6 +114,7 @@ public:
 						}
 						result.push_back(tv);
 					}
+			}
 		}
 		for (int i = 0; i < result.size(); i++)
 		{
