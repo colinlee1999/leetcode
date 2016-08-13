@@ -5,7 +5,7 @@
 #include <stack>
 using namespace std;
 
-class Solution {
+class Solution { 
 public:
 	bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
 		sort(prerequisites.begin(), prerequisites.end(), my_comp_func);
