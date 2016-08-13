@@ -32,7 +32,7 @@ private:
 		vector<int> & mark)
 	{
 		if (mark[cur_pos] == 1) return false;
-		if (mark[cur_pos] == 2) return false;
+		if (mark[cur_pos] == 2) return true;
 		mark[cur_pos] = 1;
 		if (pre_index[cur_pos] != -1)
 		{
